@@ -1,0 +1,26 @@
+#sc-header {
+  background-color: @header-bg-color;
+
+  .sc-navbar {
+    padding: 1rem;
+
+    .nav-item {
+      margin: 0 0.8rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.active,
+      &:hover {
+        border-bottom: 0.1rem @primary-color-dark solid;
+      }
+    }
+  }
+
+  .sc-navbar-brand img{
+    @media @extra-small-devices {
+      width: 180px;
+    }
+  }
+}
