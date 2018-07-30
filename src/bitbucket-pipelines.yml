@@ -1,0 +1,13 @@
+image: # Docker image to use as build environment
+  name: mklkj/php-node-composer-npm
+
+pipelines:
+  default:
+    - step:
+        script:
+            - composer install
+            - npm install
+            - npm run dev
+            - vendor/bin/phpcs
+            - npm run lintless
+            - npm run lintjs
