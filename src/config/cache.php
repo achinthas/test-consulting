@@ -91,4 +91,20 @@ return [
         str_slug(env('APP_NAME', 'laravel'), '_').'_cache'
     ),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Time
+    |--------------------------------------------------------------------------
+    |
+    | Setting up a default cache expire time. When you place an item in the cache,
+    | you need to specify the number of minutes for which the value should be cached.
+    | Instead of passing the number of minutes as an integer, you may also pass a
+    | DateTime instance representing the expiration time of the cached item.
+    */
+
+    'expire' => env(
+        'CACHE_EXPIRE',
+        60
+    ),
+
 ];

@@ -1,1 +1,0 @@
-var app = angular.module('digitalmenuboard', ['ngSanitize', 'ui.select', 'ui.bootstrap', 'angularMoment']);

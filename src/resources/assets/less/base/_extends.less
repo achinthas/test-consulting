@@ -1,8 +1,7 @@
 .sc-heading-separator {
-
   margin-bottom: 4rem;
 
-  &:after {
+  &::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -27,7 +26,9 @@
     color: @primary-color-light;
   }
 
-  &:active, &:focus, &:hover {
-    border: 0
+  &:active,
+  &:focus,
+  &:hover {
+    border: 0;
   }
 }

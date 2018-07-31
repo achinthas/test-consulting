@@ -23,7 +23,7 @@
     color: @primary-color-light;
     font-weight: normal;
 
-    &:after {
+    &::after {
       content: "";
       position: absolute;
       left: 1rem;
@@ -31,12 +31,10 @@
       width: 50px;
       border-bottom: 2px solid @secondary-color;
     }
-
   }
 }
 
 .sc-footer-menu {
-
   ul {
     list-style: none;
     margin: 0;
@@ -46,13 +44,11 @@
     li {
       padding-left: 1.5rem;
 
-      &:before {
+      &::before {
         position: absolute;
-        left: 0.5rem;
         left: 0.5rem;
         content: "\00bb";
         color: @secondary-color;
-
       }
     }
   }
