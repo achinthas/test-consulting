@@ -29,7 +29,7 @@ class IndustryRepository extends Repository implements IndustryRepositoryInterfa
 
             Cache::put('industries.all', $industries, config('cache.expire'));
         }
-
+        //dd($industries);
         return $industries;
     }
 }
