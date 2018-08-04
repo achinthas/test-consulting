@@ -7,6 +7,12 @@ use \Cache;
 
 class IndustryRepository extends Repository implements IndustryRepositoryInterface
 {
+    protected $industry;
+
+    public function __construct(Industry $industry)
+    {
+        $this->industry = $industry;
+    }
 
     /**
      * Get all the industries. This data will be cached for default caching period.
@@ -19,7 +25,7 @@ class IndustryRepository extends Repository implements IndustryRepositoryInterfa
         if (Cache::has('industries.all') && $cache) {
             $industries = Cache::get('industries.all');
         } else {
-            $industries =  Industry::all();
+             $industries =  $this->industry->all();
 
             /*
              * ToDo: Enable tags on caching in redis or Memcached. The database and file cache drivers
@@ -29,7 +35,7 @@ class IndustryRepository extends Repository implements IndustryRepositoryInterfa
 
             Cache::put('industries.all', $industries, config('cache.expire'));
         }
-        //dd($industries);
+
         return $industries;
     }
 }

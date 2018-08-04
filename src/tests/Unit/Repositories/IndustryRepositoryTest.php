@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Unit\RepositoriesTests;
+namespace Tests\Unit\Repositories;
 
 use Mockery;
-use App\Industry;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Cache;
 use App\Repositories\IndustryRepository;
@@ -12,7 +11,6 @@ class IndustryRepositoryTest extends TestCase
 {
 
     protected $industries;
-    protected $industryMock;
 
     public function setUp()
     {
@@ -35,8 +33,6 @@ class IndustryRepositoryTest extends TestCase
                 "slug" => "energy",
             ]
         ];
-
-        $this->industryMock = Mockery::mock(Industry::class);
     }
 
     public function testGetAllFromCache()
@@ -51,36 +47,31 @@ class IndustryRepositoryTest extends TestCase
             ->with('industries.all')
             ->andReturn($this->industries);
 
-        $industryRepository = new IndustryRepository();
+        $model = Mockery::mock('App\Industry');
+        $industryRepository = new IndustryRepository($model);
         $all = $industryRepository->all();
 
-        $this->assertContains( $this->industries[2], $all);
+        $this->assertContains($this->industries[2], $all);
     }
+
 
     public function testGetAllFromDatabase()
     {
-        $industry = new Industry();
-
         Cache::shouldReceive('has')
             ->once()
             ->with('industries.all')
             ->andReturn(false);
 
         Cache::shouldReceive('put')
-            ->once()
-            ->with('industries.all', $industry->newCollection($this->industries), 0)
+            ->with('industries.all', \Mockery::any(), \Mockery::any())
             ->andReturn(true);
 
-        $this->industryMock
-            ->shouldReceive('all')
-            ->once()
-            ->andReturn(array_reverse($this->industries));
+        $model = Mockery::mock('App\Industry[all]');
+        $model->shouldReceive('all')->once()->andReturn($this->industries);
+        $industryRepository = new IndustryRepository($model);
 
-        $this->app->instance(Industry::class, $this->industryMock);
-
-        $industryRepository = new IndustryRepository();
         $all = $industryRepository->all();
-        dd($all);
-        $this->assertContains( $this->industries[2], $all);
+
+        $this->assertContains($this->industries[2], $all);
     }
 }
